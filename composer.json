@@ -1,0 +1,12 @@
+{
+    "name": "coder/coder-framework",
+    "description": "this to learn creating from scratch",
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.4"
+    }
+}
