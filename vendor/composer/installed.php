@@ -1,22 +1,22 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '3dbcd69ec98dc50c2fd64c5b98b19d399314eade',
+        'reference' => 'a7cc4e2ddb9e378d32757af02ed1ff4c2515eb93',
         'name' => 'coder/coder-framework',
         'dev' => true,
     ),
     'versions' => array(
         'coder/coder-framework' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '3dbcd69ec98dc50c2fd64c5b98b19d399314eade',
+            'reference' => 'a7cc4e2ddb9e378d32757af02ed1ff4c2515eb93',
             'dev_requirement' => false,
         ),
         'graham-campbell/result-type' => array(
