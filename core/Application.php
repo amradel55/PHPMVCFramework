@@ -2,6 +2,10 @@
 
 namespace app\core;
 
+use app\core\View;
+use app\core\db\DataBase;
+use  app\core\db\DbModel;
+
 /**
  * class Application
  *
@@ -12,14 +16,17 @@ namespace app\core;
 class Application
 {
     public static string $ROOT_DIR;
-
+    public string $layout = 'main';
+    public string $userClass;
     public Router $router;
     public Request $request;
     public Response $response;
     public Session $session;
     public DataBase $db;
     public static Application $app;
-    public Controller $controller;
+    public ?Controller $controller = null;
+    public ?DbModel $user;
+    public View $view;
 
     /**
      * @return Controller
@@ -39,6 +46,9 @@ class Application
 
     public function __construct($rootPath, array $config)
     {
+
+        $this->user = null;
+        $this->userClass = $config['userClass'];
         self::$ROOT_DIR = $rootPath;
         self::$app = $this;
         $this->request = new Request();
@@ -46,11 +56,45 @@ class Application
         $this->session = new Session();
         $this->router = new Router($this->request, $this->response);
         $this->db = new DataBase($config['db']);
+        $this->view = new View();
+
+        $userId = Application::$app->session->get('user');
+        if ($userId) {
+            $key = $this->userClass::primaryKey();
+            $this->user = $this->userClass::findOne([$key => $userId]);
+        }
     }
 
     public function run()
     {
-       echo $this->router->resolve();
+        try {
+            echo $this->router->resolve();
+
+        } catch (\Exception $exception){
+            $this->response->setStatusCode($exception->getCode());
+           echo $this->view->renderView('_error', ['exception' => $exception  ]);
+        }
+    }
+
+    public static function isGuest()
+    {
+        return !self::$app->user;
+    }
+    
+    public function login(DbModel $user)
+    {
+        $this->user = $user;
+        $primaryKey = $user->primaryKey();
+        $value = $user->{$primaryKey};
+        Application::$app->session->set('user', $value);
+
+        return true;
+    }
+
+    public function logout()
+    {
+        $this->user = null;
+        self::$app->session->remove('user');
     }
 
 }

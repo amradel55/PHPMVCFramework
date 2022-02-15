@@ -1,16 +1,23 @@
 <h1>Contact</h1>
-<form action="" method="post">
-    <div class="mb-3">
-        <label >Email address</label>
-        <input type="email" name="email" class="form-control" >
-    </div>
-    <div class="mb-3">
-        <label >Password</label>
-        <input type="password" name="password" class="form-control" id="exampleInputPassword1">
-    </div>
-    <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" name="checkbox" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+
+<?php
+/**
+ * @var  $this \app\core\View
+ */
+$this->title = 'Contact';
+/**
+ *  @var $model app\models\ContactForm
+ */
+$model = new app\models\ContactForm;
+//echo $model;
+$form = new \app\core\form\Form('', 'POST');
+$form->addElement(new \app\core\form\TextInput('subject', 'Subject', $model->subject ?? '', $model ?? []));
+$form->addElement(new \app\core\form\TextInput('email', 'Email', $model->email ?? '', $model ?? []));
+$form->addElement(new \app\core\form\TextArea('body', 'Body', $model->body ?? '', $model ?? []));
+
+$form->addElement(new \app\core\form\Button("Send"));
+echo $form->render()
+
+
+?>
+

@@ -1,4 +1,9 @@
+<h1>Register</h1>
 <?php
+/**
+ * @var $model \app\models\User
+ */
+
 $form = new \app\core\form\Form('', 'POST');
 $form->addElement(new \app\core\form\TextInput('firstname', 'First name', $model->firstname ?? '', $model ?? []));
 $form->addElement(new \app\core\form\TextInput('lastname', 'Last name', $model->lastname ?? '', $model ?? []));

@@ -42,23 +42,23 @@ abstract class Model
                 }
                 if ($ruleName === self::RULE_REQUIRED && !$value)
                 {
-                    $this->addError($att, self::RULE_REQUIRED);
+                    $this->addErrorForRule($att, self::RULE_REQUIRED);
                 }
                 if ($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL))
                 {
-                    $this->addError($att, self::RULE_EMAIL);
+                    $this->addErrorForRule($att, self::RULE_EMAIL);
                 }
                 if ($ruleName === self::RULE_MIN && strlen($value) < $rule['min'])
                 {
-                    $this->addError($att, self::RULE_MIN, $rule);
+                    $this->addErrorForRule($att, self::RULE_MIN, $rule);
                 }
                 if ($ruleName === self::RULE_MAX && strlen($value) > $rule['max'])
                 {
-                    $this->addError($att, self::RULE_MAX, $rule);
+                    $this->addErrorForRule($att, self::RULE_MAX, $rule);
                 }
                 if ($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']})
                 {
-                    $this->addError($att, self::RULE_MATCH, $rule);
+                    $this->addErrorForRule($att, self::RULE_MATCH, $rule);
                 }
                 if ($ruleName === self::RULE_UNIQUE )
                 {
@@ -71,7 +71,7 @@ abstract class Model
                    $record = $statement->fetchObject();
                    if ($record)
                    {
-                       $this->addError($att, self::RULE_UNIQUE, ['filed' => $att]);
+                       $this->addErrorForRule($att, self:: RULE_UNIQUE, ['filed' => $att]);
                    }
                 }
             }
@@ -80,13 +80,18 @@ abstract class Model
          return empty($this->errors);
     }
 
-    public function addError(string $att, string $rule, $params = [])
+    private function addErrorForRule(string $att, string $rule, $params = [])
     {
         $message = $this->errorMessages()[$rule] ?? '';
         foreach ($params as $key => $value)
         {
             $message = str_replace("{{$key}}", $value, $message);
         }
+        $this->errors[$att][] = $message;
+    }
+
+    public function addError(string $att, string $message)
+    {
         $this->errors[$att][] = $message;
     }
 

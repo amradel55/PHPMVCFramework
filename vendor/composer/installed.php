@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'a7cc4e2ddb9e378d32757af02ed1ff4c2515eb93',
+        'reference' => 'dfae78c1d699272dba54e603cea8dc8e3e82f9eb',
         'name' => 'coder/coder-framework',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'a7cc4e2ddb9e378d32757af02ed1ff4c2515eb93',
+            'reference' => 'dfae78c1d699272dba54e603cea8dc8e3e82f9eb',
             'dev_requirement' => false,
         ),
         'graham-campbell/result-type' => array(
